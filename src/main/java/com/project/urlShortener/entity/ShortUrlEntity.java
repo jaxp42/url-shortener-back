@@ -5,26 +5,28 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "shortUrl")
 public class ShortUrlEntity {
-    private int id, visitCount;
-    private String shortUrl, originalUrl, password;
+    private Long id;
+    private int visitCount;
+    private String shortUrl, originalUrl;
+    private boolean secure;
 
     public ShortUrlEntity(){}
 
-    public ShortUrlEntity(int id, String shortUrl, String originalUrl, int visitCount, String password){
+    public ShortUrlEntity(Long id, String shortUrl, String originalUrl, int visitCount, boolean secure){
         this.id = id;
         this.shortUrl = shortUrl;
         this.originalUrl = originalUrl;
         this.visitCount = visitCount;
-        this.password = password;
+        this.secure = secure;
     }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -52,11 +54,11 @@ public class ShortUrlEntity {
         this.originalUrl = originalUrl;
     }
 
-    public String getPassword() {
-        return password;
+    public boolean isSecure() {
+        return secure;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setSecure(boolean secure) {
+        this.secure = secure;
     }
 }

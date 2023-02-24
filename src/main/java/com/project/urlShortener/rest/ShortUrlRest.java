@@ -4,9 +4,7 @@ import com.project.urlShortener.entity.ShortUrlEntity;
 import com.project.urlShortener.service.ShortUrlService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,5 +19,20 @@ public class ShortUrlRest {
     public List<ShortUrlEntity> getAllShortUrl(){
         List<ShortUrlEntity> shortUrls = shortUrlService.getAllShortUrl();
         return shortUrls;
+    }
+
+    @GetMapping("/find")
+    public List<ShortUrlEntity> getShortUrlByShortValue(@RequestParam("shortValue") String shortValue){
+        return shortUrlService.findShortUrlByParams(shortValue);
+    }
+
+    @PostMapping("")
+    public ShortUrlEntity createShortUrl(@RequestBody ShortUrlEntity shortUrl){
+        return shortUrlService.createShortUrl(shortUrl);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteById(@PathVariable("id") int id){
+            shortUrlService.deleteById(id);
     }
 }
