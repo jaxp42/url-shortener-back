@@ -8,9 +8,7 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 @EntityScan("com.project.urlShortener")
 @SpringBootApplication()
 public class UrlShortenerApplication {
-
 	public static void main(String[] args) {
 		SpringApplication.run(UrlShortenerApplication.class, args);
 	}
-
 }
