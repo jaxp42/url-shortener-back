@@ -4,6 +4,7 @@ import com.project.urlShortener.entity.ShortUrlEntity;
 import com.project.urlShortener.service.ShortUrlService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,19 +17,31 @@ public class ShortUrlRest {
     private ShortUrlService shortUrlService;
 
     @GetMapping("")
-    public List<ShortUrlEntity> getAllShortUrl(){
+    public ResponseEntity<List<ShortUrlEntity>> getAllShortUrl(){
         List<ShortUrlEntity> shortUrls = shortUrlService.getAllShortUrl();
-        return shortUrls;
+        return ResponseEntity
+                .ok()
+                .header("Access-Control-Allow-Origin", "*")
+                .body(shortUrls);
     }
 
     @GetMapping("/find")
-    public List<ShortUrlEntity> getShortUrlByShortValue(@RequestParam("shortValue") String shortValue){
-        return shortUrlService.findShortUrlByParams(shortValue);
+    public ResponseEntity<ShortUrlEntity> getShortUrlByShortValue(@RequestParam("shortValue") String shortValue){
+        ShortUrlEntity shortUrl = shortUrlService.findShortUrlByParams(shortValue);
+        return ResponseEntity
+                .ok()
+                .header("Access-Control-Allow-Origin", "*")
+                .body(shortUrl);
     }
 
     @PostMapping("")
-    public ShortUrlEntity createShortUrl(@RequestBody ShortUrlEntity shortUrl){
-        return shortUrlService.createShortUrl(shortUrl);
+    public ResponseEntity<ShortUrlEntity> createShortUrl(@RequestBody ShortUrlEntity shortUrl){
+        ShortUrlEntity createdShortUrl = shortUrlService.createShortUrl(shortUrl);
+
+        return ResponseEntity
+                .ok()
+                .header("Access-Control-Allow-Origin", "*")
+                .body(createdShortUrl);
     }
 
     @DeleteMapping("/{id}")

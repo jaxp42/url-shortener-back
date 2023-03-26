@@ -23,8 +23,15 @@ public class ShortUrlService{
         return shortUrlRepository.findAll();
     }
 
-    public List<ShortUrlEntity> findShortUrlByParams(String shortValue){
-        return shortUrlRepository.findByShortUrl(shortValue);
+    public ShortUrlEntity findShortUrlByParams(String shortValue){
+        List<ShortUrlEntity> shortUrls = shortUrlRepository.findByShortUrl(shortValue);
+        ShortUrlEntity shortUrl = null;
+
+        if(!shortUrls.isEmpty()){
+            shortUrl = shortUrls.get(0);
+        }
+
+        return shortUrl;
     }
 
     /**
